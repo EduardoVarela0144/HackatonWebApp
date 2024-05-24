@@ -1,5 +1,5 @@
-import api from "@services/api";
 
+import { axiosInstance as api, axiosFormDataInstance as apiFormData } from "@services/api";
 class UsersRepository {
   async getUsers(params) {
     const response = await api.get(`/users`, { params });
@@ -12,7 +12,7 @@ class UsersRepository {
   }
 
   async postUser(user) {
-    const response = await api.post(`/users`, user);
+    const response = await apiFormData.post(`/users`, user);
     return response.data;
   }
 

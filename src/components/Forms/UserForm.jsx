@@ -1,7 +1,8 @@
 import React from "react";
-import { Form, Input, Button, DatePicker, Select } from "antd";
+import { Form, Input, Button, Upload, message } from 'antd';
+import { ArrowLeftOutlined, UploadOutlined } from '@ant-design/icons';
+
 import { useNavigate } from "react-router-dom";
-import { ArrowLeftOutlined } from "@ant-design/icons";
 import { selectFormRolesMockData } from "@mocks/mocksData";
 import { useAddUser } from "@hooks/Users/useAddUser";
 import { useEditUser } from "@hooks/Users/useEditUser";
@@ -19,20 +20,20 @@ export default function UserForm({ isAdd, isEdit }) {
   const { register } = useRegister();
 
   const onFinish = async (values) => {
+    console.log("Success:", values);
+    // if (!isEdit && !isAdd) {
+    //   register(values);
+    // } else if (isEdit) {
+    //   await editUser(values);
+    // } else {
+    //   await addUser(values);
+    // }
 
-    if (!isEdit && !isAdd) {
-      register(values);
-    } else if (isEdit) {
-      await editUser(values);
-    } else {
-      await addUser(values);
-    }
-
-    if (!isEdit && !isAdd) {
-      navigate("/Pending");
-    } else {
-      navigate("/Dashboard/Users");
-    }
+    // if (!isEdit && !isAdd) {
+    //   navigate("/Pending");
+    // } else {
+    //   navigate("/Dashboard/Users");
+    // }
   };
 
   const handleChange = (value) => {
@@ -85,7 +86,7 @@ export default function UserForm({ isAdd, isEdit }) {
 
       <Form.Item
         label="Nombre"
-        name="firstName"
+        name="name"
         initialValue={data?.firstName || ""}
         rules={[
           {
@@ -112,41 +113,9 @@ export default function UserForm({ isAdd, isEdit }) {
       </Form.Item>
 
       <Form.Item
-        label="Apellido Materno"
-        name="middleName"
-        initialValue={data?.middleName || ""}
-        rules={[
-          {
-            required: true,
-            message: "Por favor ingresa tu apellido materno.",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        initialValue={data?.email || ""}
-        label="Correo electrónico"
-        name="email"
-        rules={[
-          {
-            required: true,
-            message: "Por favor ingresa tu correo electrónico.",
-          },
-          {
-            type: "email",
-            message: "Por favor ingresa un correo electrónico válido.",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
         label="Número de teléfono"
-        name="phoneNumber"
-        initialValue={data?.phoneNumber || ""}
+        name="phone"
+        initialValue={data?.number || ""}
         rules={[
           {
             required: true,
@@ -162,78 +131,35 @@ export default function UserForm({ isAdd, isEdit }) {
       </Form.Item>
 
       <Form.Item
-        className={`${!isEdit ? "hidden" : "inline-block w-full"}`}
-        label="Estatus"
-        name="status"
-        initialValue={!isEdit && !isAdd ? false : isEdit ? data?.status : true}
-        rules={[
-          {
-            required: true,
-            message: "Por favor selecciona un estatus",
-          },
-        ]}
-      >
-        <Select>
-          <Option value={true}>Activo</Option>
-          <Option value={false}>Inactivo</Option>
-        </Select>
-      </Form.Item>
-
-      <Form.Item
-        label="Contraseña"
-        initialValue={data?.password || ""}
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: "Por favor ingresa tu contraseña.",
-          },
-          {
-            min: 8,
-            message: "La contraseña debe tener al menos 8 caracteres.",
-          },
-          {
-            pattern:
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+}{"':;?/>.<,])(?=.*[^a-zA-Z\d]).{8,}$/,
-            message:
-              "La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.",
-          },
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item
-        name="birthDate"
+        label="Foto de perfil"
+        name="avatar"
+        valuePropName="fileList"
+        getValueFromEvent={(e) => e && e.fileList}
         initialValue={
-          data?.birthDate ? moment(data.birthDate, "YYYY-MM-DD") : null
+          data?.avatar
+            ? [{ uid: "-1", name: "avatar", status: "done", url: data.avatar }]
+            : []
         }
-        label="Selecciona tu fecha de nacimiento"
-        rules={[
-          {
-            required: true,
-            message: "Por favor selecciona tu fecha de nacimiento.",
-          },
-        ]}
       >
-        <DatePicker style={{ width: "100%" }} />
-      </Form.Item>
-
-      {(isEdit || isAdd) && (
-        <Form.Item
-          name="roleId"
-          label="Selecciona un rol"
-          initialValue={data?.roleId || ""}
-          rules={[
-            {
-              required: true,
-              message: "Por favor selecciona un rol",
-            },
-          ]}
+        <Upload
+          name="avatar"
+          listType="picture-card"
+          showUploadList={{ showRemoveIcon: true, showPreviewIcon: true }}
+          beforeUpload={() => false}
+          maxCount={1}
+          accept="image/*"
+          onChange={(info) => {
+            const { status } = info.file;
+            if (status === "done") {
+              message.success(`${info.file.name} file uploaded successfully.`);
+            } else if (status === "error") {
+              message.error(`${info.file.name} file upload failed.`);
+            }
+          }}
         >
-          <Select onChange={handleChange} options={selectFormRolesMockData} />
-        </Form.Item>
-      )}
+          <Button icon={<UploadOutlined />}>Subir foto</Button>
+        </Upload>
+      </Form.Item>
 
       <Form.Item>
         <Button
