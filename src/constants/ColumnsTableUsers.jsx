@@ -29,18 +29,18 @@ export const ColumnsTableUsers = (handleRefetch) => [
     dataIndex: "createdAt",
     render: (date) => moment(date).format("DD/MM/YYYY"),
   },
-  // {
-  //   title: "Acciones",
-  //   dataIndex: "",
-  //   render: (_, record) => (
-  //     <Space size="middle">
-  //       <EditButton id={record?.id} />
-  //       <DeleteModal
-  //         name={record?.firstName}
-  //         id={record?.id}
-  //         refetch={handleRefetch}
-  //       />
-  //     </Space>
-  //   ),
-  // },
+  {
+    title: "Acciones",
+    dataIndex: "",
+    render: (_, record) => (
+      <Space size="middle">
+        <EditButton id={record?._id} />
+        <DeleteModal
+          name={record?.firstName}
+          id={record?.id}
+          refetch={handleRefetch}
+        />
+      </Space>
+    ),
+  },
 ];

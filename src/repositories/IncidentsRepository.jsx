@@ -1,4 +1,4 @@
-import { axiosInstance as api, axiosFormDataInstance as apiFormData } from "@services/api";
+import { axiosInstance as api } from "@services/api";
 
 class IncidentsRepository {
   async getAllReports() {
