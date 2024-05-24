@@ -15,20 +15,22 @@ import { useRegister } from "@hooks/Users/useRegister";
 export default function ReportForm({ isAdd, isEdit }) {
   const navigate = useNavigate();
 
-  const { addIncident } =  useAddIncident();
+  const { addIncident } = useAddIncident();
   const { editUser } = useEditUser();
   const { register } = useRegister();
 
   const onFinish = async (values) => {
     const formData = new FormData();
 
-    // Agregar campos de texto al FormData
-    formData.append("name", values.name);
-    formData.append("lastName", values.lastName);
-    formData.append("email", values.email);
-    formData.append("password", values.password);
-
-    formData.append("phone", values.phone);
+    
+    // Agregar valores al FormData
+    formData.append("id_incident", values.id_incident);
+    formData.append("incident_name", values.incident_name);
+    formData.append("incident_status", values.incident_status);
+    formData.append("user", values.user);
+    formData.append("incident_description", values.incident_description);
+    formData.append("incident_location", values.incident_location);
+    
 
     // Agregar imágenes al FormData
     if (values.avatar && values.avatar.length > 0) {
@@ -59,104 +61,46 @@ export default function ReportForm({ isAdd, isEdit }) {
       initialValues={{ remember: true }}
       style={{ width: "100%", margin: "0 auto" }}
     >
-      {!isEdit && !isAdd && (
-        <Form.Item className="flex flex-row">
-          <div className="flex flex-row  space-x-2 items-center justify-center">
-            <Button
-              type="primary"
-              className="bg-KarimNot md:hidden flex"
-              shape="circle"
-              icon={<ArrowLeftOutlined />}
-              onClick={() => navigate("/")}
-            />
-            <span className="opacity-100 text-center text-[10px] md:text-lg text-KarimNot font-bold ">
-              Solicita al administrador activar tu cuenta.
-            </span>
-          </div>
-        </Form.Item>
-      )}
-
-      {isEdit && (
-        <Form.Item
-          hidden={isEdit ? true : false}
-          label="Id"
-          name="id"
-          initialValue={data?.id || ""}
-        >
-          <Input />
-        </Form.Item>
-      )}
-
       <Form.Item
-        label="Nombre"
-        name="name"
-        initialValue={data?.firstName || ""}
-        rules={[
-          {
-            required: true,
-            message: "Por favor ingresa tu nombre.",
-          },
-        ]}
+        label="Id incidente"
+        name="id_incident"
+        initialValue={data?._id || ""}
       >
         <Input />
       </Form.Item>
 
       <Form.Item
-        label="Apellido Paterno"
-        name="lastName"
-        initialValue={data?.lastName || ""}
-        rules={[
-          {
-            required: true,
-            message: "Por favor ingresa tu apellido paterno.",
-          },
-        ]}
+        label="Nombre del incidente"
+        name="incident_name"
+        initialValue={""}
       >
         <Input />
       </Form.Item>
 
       <Form.Item
-        label="Correo electrónico"
-        name="email"
-        initialValue={data?.email || ""}
-        rules={[
-          {
-            required: true,
-            message: "Por favor ingresa tu correo electrónico.",
-          },
-        ]}
+        label="Incidente status"
+        name="incident_status"
+        initialValue={""}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item label="Usuario" name="user" initialValue={""}>
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Descripción del incidente"
+        name="incident_description"
+        initialValue={""}
       >
         <Input />
       </Form.Item>
 
       <Form.Item
-        label="Contraseña"
-        name="password"
-        initialValue={data?.password || ""}
-        rules={[
-          {
-            required: true,
-            message: "Por favor ingresa tu contraseña.",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="Número de teléfono"
-        name="phone"
-        initialValue={data?.number || ""}
-        rules={[
-          {
-            required: true,
-            message: "Por favor ingresa tu número de teléfono.",
-          },
-          {
-            pattern: /^[\d+-]+$/,
-            message: "Por favor ingresa solo números, + y -.",
-          },
-        ]}
+        label="Localización del incidente"
+        name="incident_location"
+        initialValue={""}
       >
         <Input />
       </Form.Item>
