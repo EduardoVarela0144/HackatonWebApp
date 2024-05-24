@@ -47,7 +47,7 @@ export default function Login() {
           }
           setAuth(user);
           console.log('Authenticated');
-          navigate("/Dashboard/users");
+          navigate("/Dashboard/Reportes");
         } catch (error) {
           console.error('Error:', error);
         }
