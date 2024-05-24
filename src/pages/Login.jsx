@@ -1,24 +1,99 @@
-import React, { useEffect } from "react";
+import { useEffect, useRef, useCallback, useContext } from "react";
 import { Row, Col } from "antd";
-import { Form, Input, Button } from "antd";
+import { Form } from "antd";
 import { useNavigate } from "react-router-dom";
 import CustomCarousel from "@components/General/CustomCarousel";
-import AnimationLayout from "@components/General/AnimationLayout";
-import { useLogin } from "@hooks/Users/useLogin";
-import Logo from "@assets/images/Logo.png";
+import Webcam from "react-webcam";
+import { v4 as uuid } from 'uuid';
+import { AuthContext } from "@context/AuthContext";
+
+const videoConstraints = {
+  width: 400,
+  height: 400,
+  facingMode: 'user',
+}
 
 export default function Login() {
   const navigate = useNavigate();
+
+  const { setAuth } = useContext(AuthContext);
+
+  const webcamRef = useRef(null)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const capture = useCallback(() => {
+    const pictureSrc = webcamRef.current.getScreenshot()
+    sendImage(pictureSrc);
+  })
+
+
+  function sendImage(imageData) {
+    console.log("Sending image");
+    //e.preventDefault();
+    const visitorImageName = uuid();
+    fetch(`https://lclua29gn1.execute-api.us-east-1.amazonaws.com/dev/fixm-visitor-image-storage/${visitorImageName}.jpeg`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'image/jpeg',
+        'Accept': 'application/json',
+      },
+      body: dataURItoBlob(imageData)
+    }).then(async () => {
+      const response = await facial_authenticate(visitorImageName);
+      if (response.Message === 'Success') {
+        try {
+          const user = {
+            'firstName': response.firstName,
+            'lastName': response.lastName,
+          }
+          setAuth(user);
+          console.log('Authenticated');
+          navigate("/Dashboard/users");
+        } catch (error) {
+          console.error('Error:', error);
+        }
+        
+      } else {
+        console.log('Not Authenticated');
+      }
+    }).catch( error => {
+      console.error('Error:', error);
+    });
+  }
+
+  async function facial_authenticate(visitorImageName) {
+    const requestURL = 'https://lclua29gn1.execute-api.us-east-1.amazonaws.com/dev/employee?' + new URLSearchParams({
+      objectKey: `${visitorImageName}.jpeg`
+    });
+    return await fetch(requestURL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
+    }).then(response => response.json()) 
+    .then(data => {
+      return data;
+    }).catch((error) => console.error('Error:', error));
+
+  }
+
+  const dataURItoBlob = (dataURI) => {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([ab], { type: mimeString });
+    return blob;
+  };
 
   useEffect(() => {
     document.title = "Login";
   }, []);
 
-  const { login } = useLogin();
-
-  const onFinish = (values) => {
-    login(values);
-  };
+ 
 
   return (
     // <AnimationLayout>
@@ -34,51 +109,26 @@ export default function Login() {
         >
           <Form
             name="login-form"
-            onFinish={onFinish}
             layout="vertical"
             initialValues={{ remember: true }}
             style={{ width: "100%", margin: "0 auto" }}
           >
-            <div className="flex items-center justify-center">
-              <img src={Logo} className="mb-16 h-28"></img>
-            </div>
-            <Form.Item
-              label="Correo electrónico"
-              className="text-lg font-bold"
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: "Por favor ingresa tu correo electrónico.",
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
+            
+            <div>
+          <Webcam
+            audio={false}
+            height={400}
+            ref={webcamRef}
+            width={400}
+            screenshotFormat="image/jpeg"
+            videoConstraints={videoConstraints}
+          />
+       
+      </div>
 
-            <Form.Item
-              label="Contraseña"
-              name="password"
-              className="text-lg font-bold"
-              rules={[
-                {
-                  required: true,
-                  message: "Por favor ingresa tu contraseña.",
-                },
-              ]}
-            >
-              <Input.Password />
-            </Form.Item>
-
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="w-full my-4 h-auto rounded-full bg-orange-500"
-              >
-                <p className="text-center py-2 align-middle justify-center text-lg font-bold">Iniciar sesión</p>
-              </Button>
-            </Form.Item>
+        <button onClick={capture} className="linear mt-2 w-full rounded-xl bg-naranjaFixi py-[12px] text-base font-medium text-white transition duration-200 hover:bg-orange-600 active:bg-orange-700 dark:bg-orange-400 dark:text-white dark:hover:bg-orange-300 dark:active:bg-orange-200">
+          Iniciar Sesión
+        </button>
           </Form>
         </Col>
         <Col
