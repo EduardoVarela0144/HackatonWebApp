@@ -44,8 +44,11 @@ export default function SiderCustom({
         >
           {Auth?.user?.name[0].toUpperCase()}
         </Avatar>
-        <span className={`text-white ${collapsed ? "hidden" : "flex"}`}>
+        <span className={`text-white text-lg font-bold ${collapsed ? "hidden" : "flex"}`}>
           {Auth?.user?.name}
+        </span>
+        <span className={`text-white ${collapsed ? "hidden" : "flex"}`}>
+          Xoxocotlán
         </span>
       </div>
 
