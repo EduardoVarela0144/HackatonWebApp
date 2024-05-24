@@ -6,6 +6,7 @@ import CustomCarousel from "@components/General/CustomCarousel";
 import Webcam from "react-webcam";
 import { v4 as uuid } from 'uuid';
 import { AuthContext } from "@context/AuthContext";
+import { notification } from "antd";
 
 const videoConstraints = {
   width: 400,
@@ -50,13 +51,28 @@ export default function Login() {
           navigate("/Dashboard/Reportes");
         } catch (error) {
           console.error('Error:', error);
+          notification.error({
+            message: "Error al iniciar sesión",
+            description: `Ha ocurrido un error al iniciar sesión: ${error?.response?.data?.error}`,
+            placement: "topRight",
+          });
         }
         
       } else {
         console.log('Not Authenticated');
+        notification.error({
+          message: "Usuario no autorizado",
+          description: `Usuario no autorizado. Por favor, intente de nuevo.`,
+          placement: "topRight",
+        });
       }
     }).catch( error => {
       console.error('Error:', error);
+      notification.error({
+        message: "Error al iniciar sesión",
+        description: `Ha ocurrido un error al iniciar sesión: ${error?.response?.data?.error}`,
+        placement: "topRight",
+      });
     });
   }
 
