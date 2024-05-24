@@ -21,7 +21,7 @@ function useLogin() {
       if (response?.user?.roleId == 1) {
         navigate("/Dashboard");
       } else {
-        navigate("/Welcome");
+        navigate("/Dashboard");
       }
 
       notification.success({

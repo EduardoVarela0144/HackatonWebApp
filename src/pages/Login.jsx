@@ -39,7 +39,6 @@ export default function Login() {
               initialValues={{ remember: true }}
               style={{ width: "100%", margin: "0 auto" }}
             >
-              <img src={Logo} className="h-24 w-auto" />
               <Form.Item
                 label="Correo electrónico"
                 name="email"
@@ -75,12 +74,12 @@ export default function Login() {
                 >
                   Iniciar sesión
                 </Button>
-                <Button
+                {/* <Button
                   onClick={() => navigate("/Register")}
                   className="w-full"
                 >
                   Registrarse
-                </Button>
+                </Button> */}
               </Form.Item>
             </Form>
           </Col>

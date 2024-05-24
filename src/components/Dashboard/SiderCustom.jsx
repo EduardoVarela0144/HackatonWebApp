@@ -43,10 +43,10 @@ export default function SiderCustom({
           size={collapsed ? 30 : 60}
           text="true"
         >
-          {Auth?.user?.firstName[0].toUpperCase()}
+          {Auth?.user?.name[0].toUpperCase()}
         </Avatar>
         <span className={`text-white ${collapsed ? "hidden" : "flex"}`}>
-          {Auth?.user?.firstName}
+          {Auth?.user?.name}
         </span>
       </div>
 
