@@ -6,7 +6,7 @@ export default function EditButton({id}) {
   const navigate = useNavigate();
   return (
     <Button
-      onClick={() => navigate(`/Dashboard/Users/${id}`)}
+      onClick={() => navigate(`/Dashboard/Reportes/${id}`)}
       style={{ backgroundColor: "#008FD1" }}
       type="primary"
     >

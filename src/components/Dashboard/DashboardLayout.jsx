@@ -16,9 +16,9 @@ const DashboardLayout = () => {
 
   const getSelectedKey = () => {
     const path = location.pathname;
-    if (path === "/Dashboard") return "1";
+    if (path === "/Dashboard/Reportes") return "1" ;
+
     if (path === "/Dashboard/Users" || path === "/Dashboard/AddUser") return "2";
-    if (path === "/Dashboard/Roles") return "3";
     return "1";
   };
 

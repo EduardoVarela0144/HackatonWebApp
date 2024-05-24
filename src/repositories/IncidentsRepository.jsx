@@ -1,4 +1,4 @@
-import { axiosInstance as api } from "@services/api";
+import { axiosInstance as api, axiosInstanceFile  } from "@services/api";
 
 class IncidentsRepository {
   async getAllReports() {
@@ -19,6 +19,12 @@ class IncidentsRepository {
 
   async getIncidentHistory(id) {
     const response = await api.get(`incidents/history/${id}`);
+    return response.data;
+  }
+
+  async postIncidentHistoryr(user) {
+    console.log(user);
+    const response = await axiosInstanceFile.post(`incident-histories`, user);
     return response.data;
   }
 }

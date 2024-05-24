@@ -14,7 +14,8 @@ export default function DashboardRouter() {
     <Route path="/Reportes" element={<DashboardReports />} />
     <Route path="/Roles" element={<DashboardRoles />} />
     <Route path="/AddUser" element={<AddUser />} />
-    <Route path="/Users/:id" element={<EditUser />} />
+    <Route path="/Reportes/:id" element={<EditUser />} />
+
   </Routes>
   )
 }
