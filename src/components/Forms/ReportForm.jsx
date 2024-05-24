@@ -106,7 +106,7 @@ export default function ReportForm({ isAdd, isEdit }) {
       </Form.Item>
 
       <Form.Item
-        label="Foto de perfil"
+        label="Evidencia del incidente"
         name="avatar"
         valuePropName="fileList"
         getValueFromEvent={(e) => e && e.fileList}
