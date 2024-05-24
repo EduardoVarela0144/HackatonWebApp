@@ -1,6 +1,6 @@
 import React from "react";
-import { Form, Input, Button, Upload, message } from 'antd';
-import { ArrowLeftOutlined, UploadOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Upload, message } from "antd";
+import { ArrowLeftOutlined, UploadOutlined } from "@ant-design/icons";
 
 import { useNavigate } from "react-router-dom";
 import { selectFormRolesMockData } from "@mocks/mocksData";
@@ -21,13 +21,31 @@ export default function UserForm({ isAdd, isEdit }) {
 
   const onFinish = async (values) => {
     console.log("Success:", values);
-    // if (!isEdit && !isAdd) {
-    //   register(values);
-    // } else if (isEdit) {
-    //   await editUser(values);
-    // } else {
-    //   await addUser(values);
-    // }
+
+    const formData = new FormData();
+
+    // Agregar campos de texto al FormData
+    formData.append("name", values.name);
+    formData.append("lastName", values.lastName);
+    formData.append("email", values.email);
+    formData.append("password", values.password);
+
+
+    formData.append("phone", values.phone);
+
+    // Agregar imágenes al FormData
+    if (values.avatar && values.avatar.length > 0) {
+      const avatarFile = values.avatar[0].originFileObj;
+      formData.append("images", avatarFile);
+    }
+
+    if (!isEdit && !isAdd) {
+      register(values);
+    } else if (isEdit) {
+      await editUser(values);
+    } else {
+      await addUser(formData);
+    }
 
     // if (!isEdit && !isAdd) {
     //   navigate("/Pending");
@@ -111,6 +129,36 @@ export default function UserForm({ isAdd, isEdit }) {
       >
         <Input />
       </Form.Item>
+
+      <Form.Item
+        label="Correo electrónico"
+        name="email"
+        initialValue={data?.email|| ""}
+        rules={[
+          {
+            required: true,
+            message: "Por favor ingresa tu correo electrónico.",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Contraseña"
+        name="password"
+        initialValue={data?.password || ""}
+        rules={[
+          {
+            required: true,
+            message: "Por favor ingresa tu contraseña.",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+     
 
       <Form.Item
         label="Número de teléfono"
