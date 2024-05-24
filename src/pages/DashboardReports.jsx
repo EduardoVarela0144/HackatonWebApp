@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Layout, Table, Pagination } from "antd";
-import { ColumnsTableUsers } from "@constants/ColumnsTableUsers";
 import Loader from "@components/General/Loader";
-import UserFilter from "@components/Dashboard/UserFilter";
-import MobileViewUsers from "@components/Dashboard/MobileViewUsers";
-import { useGetUsers } from "@hooks/Users/useGetUsers";
+import { useGetIncidents } from "@hooks/Incidents/useGetIncidents";
+import MobileViewReports from "@components/Dashboard/MobileViewReports";
+import { ColumnsTableReports } from "@constants/ColumnsTableReports";
 
 export default function DashboardReports() {
   const { Content } = Layout;
 
   const [filter, setFilter] = useState({ search: "", page: 1, roleId: "" });
 
-  const { data, isFetching, refetch} = useGetUsers(filter);
+  const { data, isFetching, refetch} = useGetIncidents(filter);
+  console.log(data)
 
   const handlePageChange = (newPage) => {
     if (newPage != filter.page) {
@@ -21,20 +21,6 @@ export default function DashboardReports() {
 
   const handleRefetch = () => {
     refetch()
-  }
-
-  const handleSearchChange = (data) => {
-    const updatedFilter = { ...filter };
-
-    updatedFilter.roleId = data.rol || "";
-    updatedFilter.search = data.user || "";
-    updatedFilter.page = 1;
-
-    setFilter(updatedFilter);
-  };
-
-  const handleCleanSearch = () => {
-    setFilter({ search: "", page: 1, roleId: "" });
   }
 
   return (
@@ -48,11 +34,11 @@ export default function DashboardReports() {
             <Table
               pagination={false}
               className="w-100 hidden lg:flex"
-              columns={ColumnsTableUsers(handleRefetch)}
+              columns={ColumnsTableReports(handleRefetch)}
               dataSource={data}
               rowKey={(record) => record?.id}
             />
-            <MobileViewUsers data={data} isFetching={isFetching} refetch={refetch} />
+            <MobileViewReports data={data} isFetching={isFetching} refetch={refetch} />
             <div className="flex  w-full justify-center items-center">
               <Pagination
                 pageSize={10}

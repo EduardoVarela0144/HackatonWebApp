@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Layout } from "antd";
 import SiderCustom from "@components/Dashboard/SiderCustom";
 import NavBarCustom from "@components/Dashboard/NavBarCustom";
@@ -22,7 +22,6 @@ const DashboardLayout = () => {
     return "1";
   };
 
- 
 
   useEffect(() => {
     document.title = "Dashboard";
@@ -42,7 +41,7 @@ const DashboardLayout = () => {
             items={ItemsMenuDashboard}
             getSelectedKey={getSelectedKey}
           />
-         <DashboardRouter/>
+          <DashboardRouter />
         </Content>
       </Layout>
     </Layout>

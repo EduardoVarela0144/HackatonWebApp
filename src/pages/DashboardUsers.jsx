@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Layout, Table, Pagination } from "antd";
 import { ColumnsTableUsers } from "@constants/ColumnsTableUsers";
 import Loader from "@components/General/Loader";
