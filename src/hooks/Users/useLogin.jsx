@@ -4,7 +4,8 @@ import UsersRepository from "@repositories/UsersRepository";
 import { notification } from "antd";
 import { AuthContext } from "@context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "@services/api";
+
+import { axiosInstance } from "@services/api";
 
 function useLogin() {
   const mutation = useMutation(UsersRepository.login);

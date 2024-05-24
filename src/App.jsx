@@ -3,7 +3,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthContext } from "./context/AuthContext";
 import { useState, useEffect } from "react";
-import axiosInstance from "@services/api";
+import { axiosInstance } from "@services/api";
 
 function App() {
   const [Auth, setAuth] = useState(null);

@@ -1,4 +1,6 @@
-import api from "@services/api";
+import { axiosInstance as api, axiosFormDataInstance as apiFormData } from "@services/api";
+
+
 
 class RolesRepository {
   async getRoles() {
