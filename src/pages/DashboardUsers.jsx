@@ -50,10 +50,10 @@ export default function DashboardUsers() {
               pagination={false}
               className="w-100 hidden lg:flex"
               columns={ColumnsTableUsers(handleRefetch)}
-              dataSource={data?.users}
+              dataSource={data}
               rowKey={(record) => record?.id}
             />
-            <MobileViewUsers data={data?.users} isFetching={isFetching} refetch={refetch} />
+            <MobileViewUsers data={data} isFetching={isFetching} refetch={refetch} />
             <div className="flex  w-full justify-center items-center">
               <Pagination
                 pageSize={10}

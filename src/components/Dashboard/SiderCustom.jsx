@@ -26,8 +26,7 @@ export default function SiderCustom({
           collapsed ? "hidden" : "flex"
         } items-center px-2 py-1`}
       >
-        <img src={Logo} className="h-8 w-auto" />
-        <span className="font-bold text-white">Karimnot Inc</span>
+ 
       </div>
 
       <div
