@@ -19,9 +19,9 @@ function useLogin() {
 
 
       if (response?.user?.roleId == 1) {
-        navigate("/Dashboard");
+        navigate("/Dashboard/users");
       } else {
-        navigate("/Dashboard");
+        navigate("/Dashboard/users");
       }
 
       notification.success({

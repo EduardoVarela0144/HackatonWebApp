@@ -15,13 +15,27 @@ export default function PrivateRouter({ Component }) {
   // Loading Auth
   if (isLoading) {
     return <Loader />;
-  }
+  } else {
+    // If loading is finish and user is autenticated
+    if (Auth !== null && Auth !== undefined) {
+      // If user is autenticated and try to use login or register
+      if (allowedRoutes.includes(currentURL)) {
+        if (Auth?.user?.roleId != 1) {
+          return <Navigate to="/Dashboard/users" />;
+        } else {
+          return <Navigate to="/Dashboard/users" />;
+        }
+      } // If user autenticated try to use Dashboard
+      return <Component />;
 
-  // Si el usuario está autenticado, permitir el acceso al Dashboard
-  if (Auth) {
-    return <Component />;
+    } else {
+      // If user is not autenticated and try to use Login or register
+      if (allowedRoutes.includes(currentURL)) {
+        return <Component />;
+      } else {
+        // If user is not autenticated and try to use protected routes
+        return <Navigate to="/" />;
+      }
+    }
   }
-
-  // Si el usuario no está autenticado, redirigir a la página de inicio
-  return <Navigate to="/" />;
 }
