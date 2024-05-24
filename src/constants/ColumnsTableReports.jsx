@@ -1,13 +1,7 @@
 import moment from "moment";
 
-/*
-      <p><strong>Descripción:</strong> {incident_description}</p>
-      <p><strong>Estado:</strong> {incident_status}</p>
-      <p><strong>Fecha de creación:</strong> {moment(createdAt).format("DD/MM/YYYY")}</p>
-      <p><strong>Ubicación:</strong> {`${alt}, ${long}, ${municipality}`}</p>
-      <p><strong>Usuario técnico:</strong> {`${techName} - ${techEmail} - ${techPhone}`}</p>
-      <p><strong>Usuario cliente:</strong> {`${clientName} - ${clientEmail} - ${clientPhone}`}</p>
-*/
+import { Space } from "antd";
+import EditButton from "@components/Dashboard/EditButton";
 
 export const ColumnsTableReports = () => [
   {
@@ -38,8 +32,13 @@ export const ColumnsTableReports = () => [
     render: (user) => `${user.name} - ${user.email} - ${user.phone}`,
   },
   {
-    title: "Fecha de creación",
-    dataIndex: "createdAt",
-    render: (date) => moment(date).format("DD/MM/YYYY"),
+    title: "Acciones",
+    dataIndex: "",
+    render: (_, record) => (
+      <Space size="middle">
+        <EditButton id={record?._id} />
+        
+      </Space>
+    ),
   },
 ];
