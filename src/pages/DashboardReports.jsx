@@ -40,7 +40,6 @@ export default function DashboardReports() {
   return (
     <Layout className="flex-1 flex h-full">
       <Content className="bg-slate-200 h-full flex flex-col items-start justify-center px-8 py-4 space-y-8 overflow-auto">
-        <UserFilter handleSearchChange={handleSearchChange} handleCleanSearch={handleCleanSearch} />
 
         {isFetching ? (
           <Loader />

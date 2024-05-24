@@ -22,47 +22,7 @@ export default function UserFilter({handleSearchChange, handleCleanSearch}) {
       <span className="text-left text-KarimNot text-4xl font-bold">
         Usuarios
       </span>
-      <div className="w-full flex flex-row space-x-4">
-        <Form
-          form={form}
-          layout="inline"
-          className="w-full items-end"
-          labelAlign="top"
-          onFinish={onFinish}
-        >
-          <div className="w-[100%] lg:w-[35%]">
-            <span className="ml-1 font-bold">Seleccionar rol</span>
-            <Form.Item name="rol" initialValue="">
-              <Select options={selectRolesMockData} />
-            </Form.Item>
-          </div>
-
-          <div className="w-[100%] lg:w-[35%]">
-            <span className="ml-1 font-bold">Buscar usuario</span>
-            <Form.Item name="user">
-              <Input placeholder="Nombre o correo electrónico" />
-            </Form.Item>
-          </div>
-
-          <Form.Item className="w-[95%] lg:w-[10%] my-4 lg:my-0">
-            <Button onClick={() => handleClean()} className="bg-KarimNot w-full" type="primary">
-              Limpiar
-            </Button>
-          </Form.Item>
-
-          <Form.Item className="w-[95%] lg:w-[10%] my-4 lg:my-0">
-            <Button
-              style={{ borderColor: "#008FD1", color: "#008FD1" }}
-              className="w-full"
-              htmlType="submit"
-              type="primary"
-              ghost
-            >
-              Buscar
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
+      
       <div>
         <Button
           onClick={() => navigate("/Dashboard/AddUser")}
