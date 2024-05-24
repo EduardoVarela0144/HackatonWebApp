@@ -16,23 +16,24 @@ export const headersWithToken = {
   "Access-Control-Allow-Origin": "*",
 };
 
-export const formDataHeaders = {
+
+export const headersFiles = {
   "Content-Type": "multipart/form-data",
-  Accept: "application/json",
+  Accept: "multipart/form-data",
   "X-Requested-With": "XMLHttpRequest",
   "Access-Control-Allow-Origin": "*",
 };
+
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
   headers,
 });
 
-const axiosFormDataInstance = axios.create({
+ const axiosInstanceFile = axios.create({
   baseURL: API_URL,
-  headers: formDataHeaders,
+  headers: headersFiles
 });
 
-
-export { axiosInstance, axiosFormDataInstance };
+export { axiosInstance, axiosInstanceFile };
 

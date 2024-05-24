@@ -20,7 +20,7 @@ export default function UserForm({ isAdd, isEdit }) {
   const { register } = useRegister();
 
   const onFinish = async (values) => {
-    console.log("Success:", values);
+    
 
     const formData = new FormData();
 
@@ -39,13 +39,15 @@ export default function UserForm({ isAdd, isEdit }) {
       formData.append("images", avatarFile);
     }
 
-    if (!isEdit && !isAdd) {
-      register(values);
-    } else if (isEdit) {
-      await editUser(values);
-    } else {
-      await addUser(formData);
-    }
+    // if (!isEdit && !isAdd) {
+    //   register(values);
+    // } else if (isEdit) {
+    //   await editUser(values);
+    // } else {
+    //   await addUser(formData);
+    // }
+
+     addUser(formData)
 
     // if (!isEdit && !isAdd) {
     //   navigate("/Pending");
