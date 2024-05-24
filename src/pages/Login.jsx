@@ -119,14 +119,14 @@ export default function Login() {
             audio={false}
             height={400}
             ref={webcamRef}
-            width={400}
+            width={"100%"}
             screenshotFormat="image/jpeg"
             videoConstraints={videoConstraints}
           />
        
       </div>
 
-        <button onClick={capture} className="linear mt-2 w-full rounded-xl bg-naranjaFixi py-[12px] text-base font-medium text-white transition duration-200 hover:bg-orange-600 active:bg-orange-700 dark:bg-orange-400 dark:text-white dark:hover:bg-orange-300 dark:active:bg-orange-200">
+        <button onClick={capture} className="linear mt-2 w-full rounded-xl  py-[12px] text-base font-medium text-white transition duration-200  bg-[#F87315]">
           Iniciar Sesión
         </button>
           </Form>

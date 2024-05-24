@@ -36,7 +36,7 @@ export default function SiderCustom({
       >
         <Avatar
           style={{
-            backgroundColor: "#008FD1",
+            backgroundColor: "#F87315",
             fontSize: collapsed ? 20 : 30,
           }}
           size={collapsed ? 30 : 60}

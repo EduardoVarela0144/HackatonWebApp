@@ -19,14 +19,14 @@ export default function UserFilter({handleSearchChange, handleCleanSearch}) {
  
   return (
     <div className="w-full space-y-8">
-      <span className="text-left text-KarimNot text-4xl font-bold">
+      <span className="text-left text-[#F87315] text-4xl font-bold">
         Usuarios
       </span>
       
       <div>
         <Button
           onClick={() => navigate("/Dashboard/AddUser")}
-          className="bg-KarimNot w-[95%] md:w-auto"
+          className="bg-[#F87315] w-[95%] md:w-auto"
           type="primary"
         >
           Agregar un nuevo usuario

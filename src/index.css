@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 .ant-menu-item-selected {
-    background-color: #008FD1 !important;
+    background-color: #FF9505  !important;
 }
 
 .ant-layout-sider-trigger{
-  background-color: #008FD1 !important;
+  background-color: #FF9505 !important;
 }
 
 
@@ -35,7 +35,7 @@
 }
 
 .spinner .circle {
-  border: 4px solid #008FD1;
+  border: 4px solid #FF9505 ;
   border-top: 4px solid transparent;
   border-radius: 50%;
   width: 100%;
@@ -47,5 +47,15 @@
 }
 
 
+.my-custom-menu .ant-menu-item-selected {
+  background-color: #FF9505 !important;
+}
 
+.ant-layout-sider-trigger{
+  background-color: #FF9505 !important;
+}
+
+.ant-card-body{
+  width: 100% !important;
+}
 
