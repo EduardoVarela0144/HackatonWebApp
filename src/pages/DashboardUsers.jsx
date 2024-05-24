@@ -39,7 +39,7 @@ export default function DashboardUsers() {
 
   return (
     <Layout className="flex-1 flex h-full">
-      <Content className="bg-slate-200 h-full flex flex-col items-start justify-center px-8 py-4 space-y-8 overflow-auto">
+      <Content className="bg-slate-200 w-full h-full flex flex-col items-start justify-center px-8 py-4 space-y-8 overflow-auto">
       <UserFilter handleSearchChange={handleSearchChange} handleCleanSearch={handleCleanSearch} />
 
         {isFetching ? (
@@ -48,13 +48,13 @@ export default function DashboardUsers() {
           <>
             <Table
               pagination={false}
-              className="w-100 hidden lg:flex"
+              className="hidden lg:flex w-full"
               columns={ColumnsTableUsers(handleRefetch)}
               dataSource={data}
               rowKey={(record) => record?.id}
             />
             <MobileViewUsers data={data} isFetching={isFetching} refetch={refetch} />
-            <div className="flex  w-full justify-center items-center">
+            <div className="flex w-full justify-center items-center">
               <Pagination
                 pageSize={10}
                 total={data?.totalUsers}
